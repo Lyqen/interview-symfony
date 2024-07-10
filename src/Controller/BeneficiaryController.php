@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\BeneficiaryRepository;
+
+class BeneficiaryController extends AbstractController
+{
+    #[Route(path: '/', name: 'app_beneficiaries')]
+    #[IsGranted('ROLE_USER')]
+    public function index(BeneficiaryRepository $beneficiaryRepository): Response
+    {
+        $beneficiaries = [];
+        for ($i = 0; $i < 12; $i++) {
+            $name = 'Beneficiary ' . $i;
+            $avatarUrl = 'https://api.dicebear.com/8.x/avataaars/svg?seed=' . urlencode($name);
+            $beneficiaries[] = ['name' => $name, 'avatar' => $avatarUrl];
+        }
+        
+        $listbeneficiaries = $beneficiaryRepository->findAll();
+
+        return $this->render('beneficiaries/index.html.twig', [
+            'beneficiaries' => $beneficiaries,
+            'listbeneficiaries' => $listbeneficiaries,
+        ]);
+    }
+}

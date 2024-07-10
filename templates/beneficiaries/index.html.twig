@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="App">
+        <header class="App-header">
+            <h1>Bienvenue dans le gestionnaire de bénéficiaires Reconnect</h1>
+            <hr/>
+            <h3>Personnes stockées en base</h3>
+            <div class="Beneficiaries-list">
+                {% for beneficiary in listbeneficiaries %}
+                    <div class="Beneficiary-card" key="{{ beneficiary.name }}">
+                        <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{ beneficiary.name }}" alt="{{ beneficiary.name }}"/>
+                        <span>{{ beneficiary.name }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <hr/>
+            <h3>Personnes non stockées</h3>
+            <div class="Beneficiaries-list">
+                {% for beneficiary in beneficiaries %}
+                    <div class="Beneficiary-card" key="{{ beneficiary.name }}">
+                        <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{ beneficiary.name }}" alt="{{ beneficiary.name }}"/>
+                        <span>{{ beneficiary.name }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </header>
+    </div>
+{% endblock %}
