@@ -9,12 +9,13 @@
             <div class="User-info">
                 <p>Utilisateur connecté : {{ user.username }}</p>
             </div>
+            <input type="text" id="searchBar" placeholder="Rechercher un bénéficiaire..." oninput="filterBeneficiaries()">
         </header>
         <main class="App-main">
             <h3>Personnes stockées en base</h3>
-            <div class="Beneficiaries-list">
+            <div id="storedBeneficiaries" class="Beneficiaries-list">
                 {% for beneficiary in listbeneficiaries %}
-                    <div class="Beneficiary-card" key="{{ beneficiary.name }}">
+                    <div class="Beneficiary-card" key="{{ beneficiary.name }}" data-name="{{ beneficiary.name }}">
                         <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{ beneficiary.name }}" alt="{{ beneficiary.name }}"/>
                         <span>{{ beneficiary.name }}</span>
                     </div>
@@ -22,9 +23,9 @@
             </div>
             <hr/>
             <h3>Personnes non stockées</h3>
-            <div class="Beneficiaries-list">
+            <div id="nonStoredBeneficiaries" class="Beneficiaries-list">
                 {% for beneficiary in beneficiaries %}
-                    <div class="Beneficiary-card" key="{{ beneficiary.name }}">
+                    <div class="Beneficiary-card" key="{{ beneficiary.name }}" data-name="{{ beneficiary.name }}">
                         <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{ beneficiary.name }}" alt="{{ beneficiary.name }}"/>
                         <span>{{ beneficiary.name }}</span>
                     </div>
@@ -32,4 +33,19 @@
             </div>
         </main>
     </div>
+    <script>
+        function filterBeneficiaries() {
+            var input = document.getElementById('searchBar').value.toLowerCase();
+            var cards = document.querySelectorAll('.Beneficiary-card');
+
+            cards.forEach(function(card) {
+                var name = card.getAttribute('data-name').toLowerCase();
+                if (name.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 {% endblock %}
