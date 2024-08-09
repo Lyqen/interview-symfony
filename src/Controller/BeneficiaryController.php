@@ -12,6 +12,8 @@ class BeneficiaryController extends AbstractController
     #[Route(path: '/', name: 'app_beneficiaries')]
     public function index(BeneficiaryRepository $beneficiaryRepository): Response
     {
+        $user = $this->getUser(); // Récupération de l'utilisateur authentifié
+
         $beneficiaries = [];
         for ($i = 0; $i < 12; $i++) {
             $name = 'Beneficiary ' . $i;
@@ -22,6 +24,7 @@ class BeneficiaryController extends AbstractController
         $listbeneficiaries = $beneficiaryRepository->findAll();
 
         return $this->render('beneficiaries/index.html.twig', [
+            'user' => $user, // Passer l'utilisateur au template
             'beneficiaries' => $beneficiaries,
             'listbeneficiaries' => $listbeneficiaries,
         ]);

@@ -5,6 +5,13 @@
         <header class="App-header">
             <h1>Bienvenue dans le gestionnaire de bénéficiaires Reconnect</h1>
             <hr/>
+            {# Afficher les informations de l'utilisateur #}
+            <div class="User-info">
+                <p>Utilisateur connecté : {{ user.username }}</p>
+            </div>
+
+            <hr/>
+
             <h3>Personnes stockées en base</h3>
             <div class="Beneficiaries-list">
                 {% for beneficiary in listbeneficiaries %}
