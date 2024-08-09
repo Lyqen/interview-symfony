@@ -10,7 +10,6 @@ use App\Repository\BeneficiaryRepository;
 class BeneficiaryController extends AbstractController
 {
     #[Route(path: '/', name: 'app_beneficiaries')]
-    #[IsGranted('ROLE_USER')]
     public function index(BeneficiaryRepository $beneficiaryRepository): Response
     {
         $beneficiaries = [];
