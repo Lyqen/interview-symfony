@@ -9,9 +9,8 @@
             <div class="User-info">
                 <p>Utilisateur connecté : {{ user.username }}</p>
             </div>
-
-            <hr/>
-
+        </header>
+        <main class="App-main">
             <h3>Personnes stockées en base</h3>
             <div class="Beneficiaries-list">
                 {% for beneficiary in listbeneficiaries %}
@@ -31,6 +30,6 @@
                     </div>
                 {% endfor %}
             </div>
-        </header>
+        </main>
     </div>
 {% endblock %}

@@ -14,12 +14,14 @@ class BeneficiaryController extends AbstractController
     {
         $user = $this->getUser(); // Récupération de l'utilisateur authentifié
 
-        $beneficiaries = [];
-        for ($i = 0; $i < 12; $i++) {
-            $name = 'Beneficiary ' . $i;
-            $avatarUrl = 'https://api.dicebear.com/8.x/avataaars/svg?seed=' . urlencode($name);
-            $beneficiaries[] = ['name' => $name, 'avatar' => $avatarUrl];
-        }
+        $names = [
+            "David", "Sarah", "Betty", "Robert", "John", "Deborah",
+            "Karen", "Donna", "Mary", "James", "Dorothy", "Nancy",
+            "Jessica", "Helen", "Michelle", "Richard", "Michael",
+            "William", "Ruth", "Patricia"
+        ];
+
+        $beneficiaries = $this->generateRandomBeneficiaries($names, 12); // Par exemple pour ceux non stockés
         
         $listbeneficiaries = $beneficiaryRepository->findAll();
 
@@ -28,5 +30,18 @@ class BeneficiaryController extends AbstractController
             'beneficiaries' => $beneficiaries,
             'listbeneficiaries' => $listbeneficiaries,
         ]);
+    }
+
+    private function generateRandomBeneficiaries(array $names, int $count): array
+    {
+        $beneficiaries = [];
+
+        for ($i = 0; $i < $count; $i++) {
+            $beneficiaries[] = [
+                'name' => $names[array_rand($names)]
+            ];
+        }
+
+        return $beneficiaries;
     }
 }
